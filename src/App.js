@@ -1,19 +1,21 @@
-import logo from './logo.svg';
 import './App.css';
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Todos from './components/Todo/Todos';
-import Todo from './components/Todo/Todo';
+import { useEffect } from 'react';
+import { getUser } from './redux/ducks/user';
+import { useSelector, useDispatch } from 'react-redux';
 
 export default function App() {
+  
+  const dispatch = useDispatch();
+  useEffect(()=>{
+    dispatch(getUser());
+  }, [dispatch]);
+
+  const user = useSelector((state)=> state.user.user);
+  console.log(user);
   return (
     <div className="App">
       <header className="App-header">
-        <Router>
-          <Switch>
-            <Route exact path="/" children={<Todos />} />
-            <Route path="/todo/:id" children={<Todo />} />
-          </Switch>
-        </Router>
+         Redux Saga Example
       </header>
     </div>
   );
